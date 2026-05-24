@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hisham & Sara | You're Invited</title>
+    <!-- Import Elegant Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #fcfbf9; /* Soft cream */
+            --text-primary: #1a2436; /* Deep navy */
+            --accent-gold: #d4af37; /* Elegant gold */
+            --text-secondary: #5a6577; /* Muted blue/gray */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: 'Lato', sans-serif;
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            overflow-x: hidden;
+        }
+
+        .invitation-container {
+            max-width: 800px;
+            padding: 60px 40px;
+            background: #ffffff;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+            position: relative;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        /* Decorative Gold Corner Borders */
+        .invitation-container::before,
+        .invitation-container::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--accent-gold);
+        }
+        .invitation-container::before {
+            top: 20px; left: 20px;
+            border-right: none; border-bottom: none;
+        }
+        .invitation-container::after {
+            bottom: 20px; right: 20px;
+            border-left: none; border-top: none;
+        }
+
+        .intro {
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        h1.names {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 20px 0;
+            line-height: 1.2;
+        }
+
+        .ampersand {
+            color: var(--accent-gold);
+            font-style: italic;
+            font-size: 3.5rem;
+            display: block;
+            margin: -10px 0;
+        }
+
+        .details-text {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin: 30px 0;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+        }
+
+        .event-details {
+            margin: 40px 0;
+            padding: 30px 0;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .event-item {
+            margin-bottom: 20px;
+        }
+
+        .event-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: var(--accent-gold);
+            margin-bottom: 5px;
+        }
+
+        .rsvp-btn {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 35px;
+            background-color: var(--text-primary);
+            color: #ffffff;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            border: 1px solid var(--text-primary);
+        }
+
+        .rsvp-btn:hover {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 600px) {
+            h1.names { font-size: 2.8rem; }
+            .invitation-container { padding: 40px 20px; margin: 20px; }
+            .ampersand { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="invitation-container">
+        <p class="intro">Together with their families</p>
+        
+        <h1 class="names">
+            Hisham
+            <span class="ampersand">&</span>
+            Sara
+        </h1>
+        
+        <p class="details-text">
+            Invite you to share in the joy of the beginning of their new life together.
+        </p>
+        
+        <div class="event-details">
+            <div class="event-item">
+                <div class="event-title">When</div>
+                <p>Saturday, October 24th, 2026<br>at Five o'clock in the evening</p>
+            </div>
+            
+            <div class="event-item">
+                <div class="event-title">Where</div>
+                <p>The Grand Botanical Gardens<br>123 Magnolia Lane, Cityville</p>
+            </div>
+        </div>
+        
+        <p class="intro" style="margin-bottom: 0;">Reception to follow</p>
+        
+        <!-- Replace '#' with a link to a Google Form for RSVPs -->
+        <a href="#" class="rsvp-btn">RSVP Here</a>
+    </div>
+
+</body>
+</html>
