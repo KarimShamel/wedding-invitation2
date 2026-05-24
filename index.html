@@ -3,178 +3,393 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hisham & Sara | You're Invited</title>
-    <!-- Import Elegant Google Fonts -->
+    <title>Hisham & Sara | The Wedding Experience</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #fcfbf9; /* Soft cream */
-            --text-primary: #1a2436; /* Deep navy */
-            --accent-gold: #d4af37; /* Elegant gold */
-            --text-secondary: #5a6577; /* Muted blue/gray */
+            --bg-color: #fcfbf9;
+            --text-primary: #1a2436;
+            --accent-gold: #d4af37;
+            --text-secondary: #5a6577;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            scroll-behavior: smooth;
         }
 
         body {
             background-color: var(--bg-color);
             color: var(--text-primary);
             font-family: 'Lato', sans-serif;
-            line-height: 1.6;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            text-align: center;
             overflow-x: hidden;
         }
 
-        .invitation-container {
-            max-width: 800px;
-            padding: 60px 40px;
-            background: #ffffff;
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.05);
-            position: relative;
-            animation: fadeIn 2s ease-in-out;
+        /* --- Welcome Gate (Solves the Autoplay Issue) --- */
+        #welcome-gate {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100vh;
+            background-color: var(--bg-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 1s ease;
         }
-
-        /* Decorative Gold Corner Borders */
-        .invitation-container::before,
-        .invitation-container::after {
-            content: '';
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            border: 2px solid var(--accent-gold);
-        }
-        .invitation-container::before {
-            top: 20px; left: 20px;
-            border-right: none; border-bottom: none;
-        }
-        .invitation-container::after {
-            bottom: 20px; right: 20px;
-            border-left: none; border-top: none;
-        }
-
-        .intro {
-            font-size: 0.9rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: var(--text-secondary);
-            margin-bottom: 20px;
-        }
-
-        h1.names {
-            font-family: 'Playfair Display', serif;
-            font-size: 4rem;
-            font-weight: 600;
+        
+        .enter-btn {
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            background-color: transparent;
             color: var(--text-primary);
-            margin: 20px 0;
-            line-height: 1.2;
+            border: 2px solid var(--accent-gold);
+            cursor: pointer;
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+        }
+        .enter-btn:hover {
+            background-color: var(--accent-gold);
+            color: white;
         }
 
+        /* --- Scroll Animation Classes --- */
+        .hidden-element {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s ease-out;
+        }
+        .show-element {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Sections Layout --- */
+        section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--accent-gold);
+            margin-bottom: 40px;
+        }
+
+        /* --- Hero Section --- */
+        #hero {
+            position: relative;
+            background: linear-gradient(rgba(252, 251, 249, 0.9), rgba(252, 251, 249, 0.9)), url('hero-bg.jpg') center/cover;
+        }
+        .names {
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            font-weight: 600;
+            line-height: 1.1;
+        }
         .ampersand {
             color: var(--accent-gold);
             font-style: italic;
-            font-size: 3.5rem;
+            font-size: 4rem;
             display: block;
-            margin: -10px 0;
+        }
+        .date {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
         }
 
-        .details-text {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            margin: 30px 0;
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-        }
-
-        .event-details {
-            margin: 40px 0;
-            padding: 30px 0;
+        /* --- Quotes & Message Section --- */
+        #message {
+            background-color: white;
             border-top: 1px solid rgba(212, 175, 55, 0.2);
             border-bottom: 1px solid rgba(212, 175, 55, 0.2);
         }
-
-        .event-item {
-            margin-bottom: 20px;
-        }
-
-        .event-title {
+        .quote {
             font-family: 'Playfair Display', serif;
-            font-size: 1.2rem;
+            font-style: italic;
+            font-size: 1.8rem;
+            max-width: 700px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            position: relative;
+        }
+        .quote::before {
+            content: '"';
+            font-size: 4rem;
             color: var(--accent-gold);
-            margin-bottom: 5px;
+            position: absolute;
+            top: -20px; left: -30px;
+            opacity: 0.3;
         }
 
-        .rsvp-btn {
-            display: inline-block;
-            margin-top: 30px;
-            padding: 12px 35px;
+        /* --- Photo Album --- */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 1000px;
+        }
+        .photo-grid img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            transition: transform 0.4s ease;
+            cursor: pointer;
+        }
+        .photo-grid img:hover {
+            transform: scale(1.05);
+            z-index: 2;
+        }
+
+        /* --- Minigame Section --- */
+        #minigame {
             background-color: var(--text-primary);
-            color: #ffffff;
-            text-decoration: none;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        #minigame .section-title {
+            color: white;
+        }
+        .game-area {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            height: 400px;
+            background: rgba(255,255,255,0.05);
+            border: 2px dashed var(--accent-gold);
+            border-radius: 10px;
+            margin-top: 20px;
+            overflow: hidden;
+            cursor: crosshair;
+        }
+        .heart {
+            position: absolute;
+            font-size: 2rem;
+            user-select: none;
+            cursor: pointer;
+            animation: fall linear forwards;
+        }
+        .score-board {
+            font-size: 1.5rem;
+            margin-top: 20px;
+            font-family: 'Playfair Display', serif;
+            color: var(--accent-gold);
+        }
+        #startGameBtn {
+            margin-top: 20px;
+            padding: 10px 25px;
+            background-color: var(--accent-gold);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 0.85rem;
-            transition: all 0.3s ease;
-            border: 1px solid var(--text-primary);
         }
 
-        .rsvp-btn:hover {
-            background-color: var(--bg-color);
-            color: var(--text-primary);
+        @keyframes fall {
+            to { transform: translateY(420px); }
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* --- Music Controls --- */
+        .music-control {
+            position: fixed;
+            bottom: 20px; left: 20px;
+            background: rgba(255,255,255,0.9);
+            border: 1px solid var(--accent-gold);
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 1000;
         }
 
-        @media (max-width: 600px) {
-            h1.names { font-size: 2.8rem; }
-            .invitation-container { padding: 40px 20px; margin: 20px; }
-            .ampersand { font-size: 2.5rem; }
+        @media (max-width: 768px) {
+            .names { font-size: 3.5rem; }
+            .ampersand { font-size: 3rem; }
+            .quote { font-size: 1.3rem; padding: 0 20px; }
+            .photo-grid img { height: 200px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="invitation-container">
-        <p class="intro">Together with their families</p>
-        
-        <h1 class="names">
-            Hisham
-            <span class="ampersand">&</span>
-            Sara
-        </h1>
-        
-        <p class="details-text">
-            Invite you to share in the joy of the beginning of their new life together.
-        </p>
-        
-        <div class="event-details">
-            <div class="event-item">
-                <div class="event-title">When</div>
-                <p>Saturday, October 24th, 2026<br>at Five o'clock in the evening</p>
-            </div>
-            
-            <div class="event-item">
-                <div class="event-title">Where</div>
-                <p>The Grand Botanical Gardens<br>123 Magnolia Lane, Cityville</p>
-            </div>
-        </div>
-        
-        <p class="intro" style="margin-bottom: 0;">Reception to follow</p>
-        
-        <!-- Replace '#' with a link to a Google Form for RSVPs -->
-        <a href="#" class="rsvp-btn">RSVP Here</a>
+    <!-- Audio Element -->
+    <audio id="bgMusic" loop>
+        <source src="wedding-song.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Welcome Gate -->
+    <div id="welcome-gate">
+        <h2 style="margin-bottom: 30px; font-family: 'Playfair Display', serif;">Hisham & Sara</h2>
+        <button class="enter-btn" id="enterBtn">Click to Enter</button>
     </div>
 
+    <!-- Music Control -->
+    <div class="music-control" id="muteBtn">🔊</div>
+
+    <!-- Hero Section -->
+    <section id="hero">
+        <div class="hidden-element">
+            <h1 class="names">
+                Hisham
+                <span class="ampersand">&</span>
+                Sara
+            </h1>
+            <p class="date">October 24, 2026 • Cityville</p>
+            <p style="margin-top: 30px; color: var(--text-secondary);">Scroll to experience our story</p>
+            <div style="font-size: 2rem; margin-top: 10px; animation: bounce 2s infinite;">↓</div>
+        </div>
+    </section>
+
+    <!-- Message & Quote Section -->
+    <section id="message">
+        <div class="hidden-element">
+            <h2 class="section-title">Our Promise</h2>
+            <p class="quote">
+                "Whatever our souls are made of, his and mine are the same. We invite you to witness the beginning of our forever."
+            </p>
+        </div>
+    </section>
+
+    <!-- Photo Album Section -->
+    <section id="album">
+        <div class="hidden-element" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
+            <h2 class="section-title">Captured Moments</h2>
+            <div class="photo-grid">
+                <img src="photo1.jpg" alt="Memory 1">
+                <img src="photo2.jpg" alt="Memory 2">
+                <img src="photo3.jpg" alt="Memory 3">
+                <img src="photo4.jpg" alt="Memory 4">
+                <img src="photo5.jpg" alt="Memory 5">
+                <img src="photo6.jpg" alt="Memory 6">
+            </div>
+        </div>
+    </section>
+
+    <!-- Minigame Section -->
+    <section id="minigame">
+        <div class="hidden-element">
+            <h2 class="section-title" style="color: var(--accent-gold);">Catch the Love!</h2>
+            <p>Help us gather love before the big day. Click the falling hearts!</p>
+            
+            <div class="game-area" id="gameArea"></div>
+            
+            <div class="score-board">Love Meter: <span id="score">0</span></div>
+            <button id="startGameBtn">Start Game</button>
+        </div>
+    </section>
+
+    <script>
+        // --- 1. Welcome Gate & Audio Logic ---
+        const enterBtn = document.getElementById('enterBtn');
+        const welcomeGate = document.getElementById('welcome-gate');
+        const bgMusic = document.getElementById('bgMusic');
+        const muteBtn = document.getElementById('muteBtn');
+        let isMuted = false;
+
+        enterBtn.addEventListener('click', () => {
+            // Fade out the gate
+            welcomeGate.style.opacity = '0';
+            setTimeout(() => {
+                welcomeGate.style.display = 'none';
+            }, 1000);
+            
+            // Start the music! (User interaction allows this)
+            bgMusic.play();
+        });
+
+        muteBtn.addEventListener('click', () => {
+            if(isMuted) {
+                bgMusic.play();
+                muteBtn.innerText = '🔊';
+            } else {
+                bgMusic.pause();
+                muteBtn.innerText = '🔇';
+            }
+            isMuted = !isMuted;
+        });
+
+        // --- 2. Scroll Animations ---
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show-element');
+                }
+            });
+        }, { threshold: 0.2 }); // Trigger when 20% of element is visible
+
+        const hiddenElements = document.querySelectorAll('.hidden-element');
+        hiddenElements.forEach((el) => observer.observe(el));
+
+        // --- 3. Minigame Logic: Catch the Hearts ---
+        const gameArea = document.getElementById('gameArea');
+        const scoreDisplay = document.getElementById('score');
+        const startBtn = document.getElementById('startGameBtn');
+        let score = 0;
+        let gameInterval;
+        let isPlaying = false;
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerText = ['❤️', '💍', '✨'][Math.floor(Math.random() * 3)];
+            
+            // Random horizontal start position
+            heart.style.left = Math.random() * (gameArea.offsetWidth - 30) + 'px';
+            
+            // Random speed between 2s and 4s
+            heart.style.animationDuration = (Math.random() * 2 + 2) + 's';
+            
+            gameArea.appendChild(heart);
+
+            // Click event to catch it
+            heart.addEventListener('click', () => {
+                score += 10;
+                scoreDisplay.innerText = score;
+                heart.remove(); // Remove heart when caught
+            });
+
+            // Remove heart if it reaches the bottom
+            setTimeout(() => {
+                if (gameArea.contains(heart)) {
+                    heart.remove();
+                }
+            }, 4000);
+        }
+
+        startBtn.addEventListener('click', () => {
+            if(isPlaying) return;
+            isPlaying = true;
+            score = 0;
+            scoreDisplay.innerText = score;
+            startBtn.innerText = "Playing...";
+            
+            // Drop a heart every 600ms
+            gameInterval = setInterval(createHeart, 600);
+
+            // Game lasts for 15 seconds
+            setTimeout(() => {
+                clearInterval(gameInterval);
+                isPlaying = false;
+                startBtn.innerText = "Play Again";
+                alert(`Game Over! You collected ${score} love points for Hisham & Sara!`);
+                gameArea.innerHTML = ''; // Clear remaining hearts
+            }, 15000);
+        });
+    </script>
 </body>
 </html>
